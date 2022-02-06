@@ -6,19 +6,21 @@ export default class UserDao implements UserDaoI{
 
     private static userDao: UserDao | null = null;
     public static getInstance = (): UserDao => {
+
         if(UserDao.userDao === null) {
             UserDao.userDao = new UserDao();
         }
         return UserDao.userDao;
     }
+
     private constructor() {}
+
     async createUser(user: User): Promise<User> {
-        return await UserModel.create(user);
+        return UserModel.create(user);
     }
 
     async deleteUser(uid: string): Promise<any> {
         return UserModel.deleteOne({_id: uid});
-
     }
 
     async findAllUsers(): Promise<User[]> {
@@ -26,7 +28,7 @@ export default class UserDao implements UserDaoI{
     }
 
     async findUserById(uid: string): Promise<any> {
-        return UserModel.findById( uid);
+        return UserModel.findById(uid);
     }
 
     async updateUser(uid: string, user: User): Promise<any> {

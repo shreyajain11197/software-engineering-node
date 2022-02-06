@@ -6,14 +6,17 @@ export default class TuitDao implements TuitDaoI {
 
     private static tuitDao: TuitDao | null = null;
     public static getInstance = (): TuitDao => {
+
         if(TuitDao.tuitDao === null) {
             TuitDao.tuitDao = new TuitDao();
         }
         return TuitDao.tuitDao;
     }
+
     private constructor() {}
+
     async createTuit(tuit: Tuit): Promise<Tuit> {
-        return await TuitModel.create(tuit);
+        return TuitModel.create(tuit);
     }
 
     async deleteTuit(tid: string): Promise<any> {
@@ -25,15 +28,15 @@ export default class TuitDao implements TuitDaoI {
     }
 
     async findTuitById(tid: string): Promise<any> {
-        return TuitModel.findById( tid);
+        return TuitModel.findById(tid);
     }
 
     async findTuitsByUser(uid: string): Promise<any> {
-        TuitModel.find({postedBy: uid});
+        return TuitModel.find({postedBy: uid});
     }
 
     async updateTuit(tid: string, tuit: Tuit): Promise<any> {
-        return TuitModel.updateOne({_id: tid},{$set: Tuit});
+        return TuitModel.updateOne({_id: tid},{$set: tuit});
     }
 
 }
