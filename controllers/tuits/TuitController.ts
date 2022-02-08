@@ -9,9 +9,9 @@ export default class TuitController implements TuitControllerI{
         if(TuitController.tuitController === null) {
             TuitController.tuitController = new TuitController();
             app.get("/tuits", TuitController.tuitController.findAllTuits);
-            app.get("/users/:uid/tuits", TuitController.tuitController.findAllTuitsByUser);
+            app.get("/users/:username/tuits", TuitController.tuitController.findAllTuitsByUser);
             app.get("/tuits/:uid", TuitController.tuitController.findTuitById);
-            app.post("/users/:uid/tuits", TuitController.tuitController.createTuitByUser);
+            app.post("/users/tuits", TuitController.tuitController.createTuitByUser);
             app.put("/tuits/:uid", TuitController.tuitController.updateTuit);
             app.delete("/tuits/:uid", TuitController.tuitController.deleteTuit);
         }
@@ -24,7 +24,7 @@ export default class TuitController implements TuitControllerI{
         TuitController.tuitDao.findAllTuits()
             .then(tuits => res.json(tuits));
     findAllTuitsByUser = (req: Request, res: Response) =>
-        TuitController.tuitDao.findTuitsByUser(req.params.uid)
+        TuitController.tuitDao.findTuitsByUser(req.params.username)
             .then(tuits => {res.json(tuits)});
     findTuitById = (req: Request, res: Response) =>
         TuitController.tuitDao.findTuitById(req.params.uid)
