@@ -1,4 +1,8 @@
-import mongoose, {Schema} from "mongoose";
+/**
+ * @file Implements mongoose schema for tuits
+ */
+
+import mongoose from "mongoose";
 
 const TuitSchema = new mongoose.Schema({
     tuit: {type: String, required: true},

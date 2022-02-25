@@ -16,7 +16,7 @@ import FollowControllerI from "../../interfaces/follows/FollowControllerI";
  *     <li>POST /api/users/:uid/likes/:tid to record that a user likes a tuit
  *     </li>
  *     <li>DELETE /api/users/:uid/unlikes/:tid to record that a user
- *     no londer likes a tuit</li>
+ *     no longer likes a tuit</li>
  * </ul>
  * @property {FollowDao} followDao Singleton DAO implementing likes CRUD operations
  * @property {FollowController} followController Singleton controller implementing
@@ -85,6 +85,7 @@ export default class FollowController implements FollowControllerI {
             .then(follows => res.json(follows));
 
     }
+
     /**
      * @param {Request} req Represents request from client, including the
      * path parameters uid and userUnfollowedId representing the user that is unfollowing
