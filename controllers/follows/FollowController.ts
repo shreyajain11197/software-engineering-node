@@ -2,7 +2,7 @@
  * @file Controller RESTful Web service API for follows resource
  */
 import {Express, Request, Response} from "express";
-//import FollowDao from "../../daos/follows/FollowDao";
+import FollowDao from "../../daos/follows/FollowsDao";
 import FollowControllerI from "../../interfaces/follows/FollowControllerI";
 
 /**
@@ -24,7 +24,7 @@ import FollowControllerI from "../../interfaces/follows/FollowControllerI";
  */
 export default class FollowController implements FollowControllerI {
 
-   // private static followDao: FollowDao = FollowDao.getInstance();
+    private static followDao: FollowDao = FollowDao.getInstance();
     private static followController: FollowController | null = null;
     /**
      * Creates singleton controller instance
@@ -36,12 +36,10 @@ export default class FollowController implements FollowControllerI {
         if(FollowController.followController === null) {
             FollowController.followController = new FollowController();
 
-            app.post("/users/:uid/follows/:userfollowedId", FollowController.followController.userFollowsUser);
-            app.delete("/users/:uid/unfollows/:userunfollowedId", FollowController.followController.userUnfollowsUser);
+            app.post("/users/:uid/follows/:userfollowedid", FollowController.followController.userFollowsUser);
+            app.delete("/users/:uid/unfollows/:userfollowedid", FollowController.followController.userUnfollowsUser);
             app.get("/users/:uid/followers", FollowController.followController.getUserFollowerList);
             app.get("/users/:uid/following", FollowController.followController.getUserFollowingList);
-            app.get("/users/followers/:uid/userprofile", FollowController.followController.accessFollowerDetails);
-            app.get("/users/following/:uid/userprofile", FollowController.followController.accessFollowingUserDetails);
 
         }
         return FollowController.followController;
@@ -49,18 +47,6 @@ export default class FollowController implements FollowControllerI {
 
     private constructor() {}
 
-    /**
-     * Retrieves a particular follower details of a user from the database
-     * @param {Request} req Represents request from client, including the path
-     * parameter uid representing the user followers
-     * @param {Response} res Represents response to client, including the
-     * body formatted as JSON arrays containing the user objects that follow the user
-     */
-    accessFollowerDetails(req: Request, res: Response): void {
-    }
-
-    accessFollowingUserDetails(req: Request, res: Response): void {
-    }
 
     /**
      * Retrieves all followers of a user from the database
@@ -70,8 +56,8 @@ export default class FollowController implements FollowControllerI {
      * body formatted as JSON arrays containing the user objects that follow the user
      */
     getUserFollowerList(req: Request, res: Response): void {
-       /* FollowController.followDao.getUserFollowerList(req.params.uid)
-            .then(followers => res.json(followers));*/
+        FollowController.followDao.getUserFollowerList(req.params.uid)
+            .then(followers => res.json(followers));
     }
 
     /**
@@ -82,8 +68,8 @@ export default class FollowController implements FollowControllerI {
      * body formatted as JSON arrays containing the user objects that are followed by the user
      */
     getUserFollowingList(req: Request, res: Response): void {
-       /* FollowController.followDao.getUserFollowerList(req.params.uid)
-            .then(following => res.json(following));*/
+        FollowController.followDao.getUserFollowingList(req.params.uid)
+            .then(following => res.json(following));
     }
 
     /**
@@ -95,8 +81,8 @@ export default class FollowController implements FollowControllerI {
      * database
      */
     userFollowsUser(req: Request, res: Response): void {
-        /*FollowController.followDao.userFollowsUser(req.params.uid, req.params.userFollowedId)
-            .then(follows => res.json(follows));*/
+        FollowController.followDao.userFollowsUser(req.params.uid, req.params.userfollowedid)
+            .then(follows => res.json(follows));
 
     }
     /**
@@ -107,8 +93,8 @@ export default class FollowController implements FollowControllerI {
      * on whether deleting the unfollowed user was successful or not
      */
     userUnfollowsUser(req: Request, res: Response): void {
-        /*FollowController.followDao.userUnfollowsUser(req.params.uid, req.params.userUnfollowedId)
-            .then(status => res.send(status));*/
+        FollowController.followDao.userUnfollowsUser(req.params.uid, req.params.userfollowedid)
+            .then(status => res.send(status));
     }
 
 }

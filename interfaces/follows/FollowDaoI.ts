@@ -9,6 +9,4 @@ export default interface FollowDaoI {
     userUnfollowsUser ( userId: string, unfollowedUserId: string): Promise<any>;
     getUserFollowerList (userId: string): Promise<Follow[]>;
     getUserFollowingList (userId: string): Promise<Follow[]>;
-    accessFollowerDetails ( userId: string, followedUserId: string): Promise<any>;
-    accessFollowingUserDetails ( userId: string, followingUserId: string): Promise<any>;
 };

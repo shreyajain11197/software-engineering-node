@@ -36,10 +36,10 @@ export default class MessageController implements MessageControllerI {
         if(MessageController.messageController === null) {
             MessageController.messageController = new MessageController();
 
-            app.post("/users/messages", MessageController.messageController.userMessagesUser);
-            app.delete("/users/:fromuserid/messages/:messageid", MessageController.messageController.userDeletesMessage);
-            app.get("/users/:fromuserid/sentmessages", MessageController.messageController.findMessagesSentByUser);
-            app.get("/users/:touserid/messagesreceived", MessageController.messageController.findMessagesSentToUser);
+            app.post("/users/:fromuid/messages/:touid", MessageController.messageController.userMessagesUser);
+            app.delete("/messages/:messageid/", MessageController.messageController.userDeletesMessage);
+            app.get("/users/:fromuid/sentmessages", MessageController.messageController.findMessagesSentByUser);
+            app.get("/users/:touid/messagesreceived", MessageController.messageController.findMessagesSentToUser);
         }
         return MessageController.messageController;
     }
@@ -55,7 +55,7 @@ export default class MessageController implements MessageControllerI {
      * database
      */
     userMessagesUser = (req: Request, res: Response) =>
-        MessageController.messageDao.userMessagesUser(req.body)
+        MessageController.messageDao.userMessagesUser(req.params.fromuid,req.params.touid, req.body.message)
             .then(messages => res.json(messages));
 
     /**
@@ -66,8 +66,8 @@ export default class MessageController implements MessageControllerI {
      * on whether deleting the message was successful or not
      */
     userDeletesMessage = (req: Request, res: Response) =>
-        MessageController.messageDao.userDeletesMessage(req.params.uid)
-            .then(messages => res.json(messages));
+        MessageController.messageDao.userDeletesMessage(req.params.messageid)
+            .then(status => res.json(status));
 
     /**
      * @param {Request} req Represents request from client, including the
@@ -76,7 +76,7 @@ export default class MessageController implements MessageControllerI {
      * body formatted as JSON containing the messages that were sent by the user.
      */
     findMessagesSentByUser = (req: Request, res: Response) =>
-        MessageController.messageDao.findMessagesSentByUser(req.params.fromuserid)
+        MessageController.messageDao.findMessagesSentByUser(req.params.fromuid)
             .then(messages => res.json(messages));
 
     /**
@@ -86,6 +86,6 @@ export default class MessageController implements MessageControllerI {
      * body formatted as JSON containing all the messages received by the user.
      */
     findMessagesSentToUser = (req: Request, res: Response) =>
-        MessageController.messageDao.findMessagesSentToUser(req.params.touserid)
+        MessageController.messageDao.findMessagesSentToUser(req.params.touid)
             .then(messages => res.json(messages));
 }

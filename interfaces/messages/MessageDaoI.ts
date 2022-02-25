@@ -6,8 +6,8 @@ import Tuit from "../../models/tuits/Tuit";
  */
 export default interface MessageDaoI {
 
-    userMessagesUser ( message: Message): Promise<Message>;
-    userDeletesMessage ( userId: string): Promise<any>;
+    userMessagesUser ( from_uid: string,to_user: string, message: Message): Promise<Message>;
+    userDeletesMessage ( message_id: String): Promise<any>;
     findMessagesSentByUser( username: string): Promise<Message[]>;
     findMessagesSentToUser( username: string) : Promise<Message[]>;
 
