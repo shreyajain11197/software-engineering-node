@@ -59,8 +59,18 @@ export default class BookmarkDao implements BookmarkDaoI {
     /**
      * Allows a user to unbookmark all tuit
      * @param {string} uid User id of the person unbookmarking all tuit to be removed from the database
-     * @returns Promise To be notified when tall he tuits are unbookmarked and entries are removed from the database
+     * @returns Promise To be notified when all the tuits are unbookmarked and entries are removed from the database
      */
     removeAllBookmarks = async (uid: string): Promise<any> =>
         BookmarkModel.deleteMany({ bookmarkedBy: uid});
+
+    /**
+     * Allows a user to fetch his most recent bookmarked tuit
+     * @param {string} uid User id of the person whose most recent bookmarked tuit is to be retrieved from the database
+     * @returns Promise To be notified when  most recent bookmarked tuit is retrieved from the database
+     */
+    getMostRecentBookmark = async (uid: string): Promise<any> =>
+        BookmarkModel.find({bookmarkedBy: uid}).sort({bookmarkDate: -1}).limit(1)
+            .populate("bookmarkedTuit")
+            .exec();
 }

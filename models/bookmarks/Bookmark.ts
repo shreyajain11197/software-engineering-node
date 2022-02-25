@@ -10,9 +10,11 @@ import User from "../users/User";
  * as in a user bookmarks a tuit
  * @property {Tuit} tuit Tuit being bookmarked
  * @property {User} likedBy User bookmarks the tuit
+ * @property {Date} bookmarkDate Date when the tuit was bookmarked
  */
 
 export default interface Bookmark {
     bookmarkedTuit: Tuit,
-    bookmarkedBy: User
+    bookmarkedBy: User,
+    bookmarkDate: Date
 };

@@ -2,8 +2,6 @@
  * @file Declares API for MessageDao related data access object methods
  */
 import Message from "../../models/messages/Message";
-import User from "../../models/users/User";
-import UserModel from "../../mongoose/users/UserModel";
 
 /**
  * @interface MessageDaoI  Defines the following use CRUD operations for the provided HTTP endpoints:

@@ -1,3 +1,19 @@
+/**
+ * @file Implements an Express Node HTTP server. Declares RESTful Web services
+ * enabling CRUD operations on the following resources:
+ * <ul>
+ *     <li>users</li>
+ *     <li>tuits</li>
+ *     <li>likes</li>
+ *     <li>follows</li>
+ *     <li>messages</li>
+ *     <li>tuits</li>
+ * </ul>
+ *
+ * Connects to a remote MongoDB instance hosted on the Atlas cloud database
+ * service
+ */
+
 import express from 'express';
 import mongoose from "mongoose";
 import UserController from "./controllers/users/UserController";
@@ -27,5 +43,9 @@ const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 const followController = FollowController.getInstance(app);
 
+/**
+ * Start a server listening at port 4000 locally
+ * but use environment variable PORT on Heroku if available.
+ */
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);

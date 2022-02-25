@@ -41,6 +41,7 @@ export default class BookmarkController implements BookmarkControllerI {
             app.delete("/users/:uid/unbookmarks/tuits/:tid", BookmarkController.bookmarkController.userUnbookmarksTuit);
             app.get("/users/:uid/bookmarks", BookmarkController.bookmarkController.findAllTuitsBookmarkedByUser);
             app.delete("/users/:uid/unbookmarkall", BookmarkController.bookmarkController.removeAllBookmarks);
+            app.get("/users/:uid/bookmarks/mostrecent", BookmarkController.bookmarkController.getMostRecentBookmark);
 
         }
         return BookmarkController.bookmarkController;
@@ -93,7 +94,15 @@ export default class BookmarkController implements BookmarkControllerI {
         BookmarkController.bookmarkDao.removeAllBookmarks(req.params.uid)
             .then(status => res.send(status));
 
-
-
+    /**
+     * Retrieves most recently bookmarked tuit by a user from the database
+     * @param {Request} req Represents request from client, including the path
+     * parameter uid representing the user
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the tuit object that was most recently bookmarked
+     */
+    getMostRecentBookmark = (req: Request, res: Response) =>
+        BookmarkController.bookmarkDao.getMostRecentBookmark(req.params.uid)
+            .then(bookmarks => res.json(bookmarks));
 
 }

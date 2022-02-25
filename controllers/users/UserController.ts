@@ -1,10 +1,10 @@
+/**
+ * @file Controller RESTful Web service API for users resource
+ */
 import {Request, Response, Express} from "express";
 import UserDao from "../../daos/users/UserDao";
 import UserControllerI from "../../interfaces/users/UserControllerI";
 
-/**
- * @file Controller RESTful Web service API for users resource
- */
 export default class UserController implements UserControllerI {
 
     /**

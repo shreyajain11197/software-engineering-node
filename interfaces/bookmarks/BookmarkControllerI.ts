@@ -54,4 +54,13 @@ export default interface BookmarkControllerI {
      */
     removeAllBookmarks (req: Request, res: Response): void;
 
+    /**
+     * Retrieves most recently bookmarked tuit by a user from the database
+     * @param {Request} req Represents request from client, including the path
+     * parameter uid representing the user
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the tuit object that was most recently bookmarked
+     */
+    getMostRecentBookmark (req: Request, res: Response): void;
+
 };

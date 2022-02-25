@@ -46,4 +46,11 @@ export default interface BookmarkDaoI {
      * @returns Promise To be notified when tall he tuits are unbookmarked and entries are removed from the database
      */
     removeAllBookmarks ( uid: string): Promise<any>;
+
+    /**
+     * Allows a user to fetch his most recent bookmarked tuit
+     * @param {string} uid User id of the person whose most recent bookmarked tuit is to be retrieved from the database
+     * @returns Promise To be notified when  most recent bookmarked tuit is retrieved from the database
+     */
+    getMostRecentBookmark ( uid: string): Promise<Bookmark[]>;
 };
