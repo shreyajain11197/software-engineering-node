@@ -5,6 +5,8 @@
 import MessageDaoI from "../../interfaces/messages/MessageDaoI";
 import MessageModel from "../../mongoose/messages/MessageModel";
 import Message from "../../models/messages/Message";
+import User from "../../models/users/User";
+import UserModel from "../../mongoose/users/UserModel";
 
 /**
  * @class MessageDao Implements Data Access Object managing data storage
@@ -60,5 +62,22 @@ export default class MessageDao implements MessageDaoI {
      */
     findMessagesSentToUser = async (to_uid: string): Promise<any> =>
         MessageModel.find({to: to_uid});
+
+    /**
+     * Removes message from the database.
+     * @param {string} user_id Primary key of user whose sent messages is to be removed
+     * @returns Promise To be notified when messages are removed from the database
+     */
+    deleteAllUserSentMessages = async ( user_id: string): Promise<any> =>
+        MessageModel.deleteMany({from: user_id});
+
+    /**
+     * Updates message with new values in database
+     * @param {string} uid Primary key of user to be modified
+     * @param {Message} message User object containing properties and their new values
+     * @returns Promise To be notified when user is updated in the database
+     */
+    userEditsMessage = async (uid: string, message: Message): Promise<any> =>
+         MessageModel.updateOne({_id: uid}, {$set: message});
 
 }

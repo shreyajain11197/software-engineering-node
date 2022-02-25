@@ -15,6 +15,8 @@ import BookmarkControllerI from "../../interfaces/bookmarks/BookmarkControllerI"
  *     </li>
  *     <li>DELETE /users/:uid/unbookmarks/:tid to record that a user
  *     no longer bookmarks a tuit</li>
+ *     <li>DELETE /users/:uid/unbookmarkall to record that a user
+ *     no longer bookmarks any tuit</li>
  * </ul>
  * @property {BookmarkDao} BookmarkDao Singleton DAO implementing bookmarks CRUD operations
  * @property {BookmarkController} BookmarkController Singleton controller implementing
@@ -38,6 +40,7 @@ export default class BookmarkController implements BookmarkControllerI {
             app.post("/users/:uid/bookmarks/tuits/:tid", BookmarkController.bookmarkController.userBookmarksTuit);
             app.delete("/users/:uid/unbookmarks/tuits/:tid", BookmarkController.bookmarkController.userUnbookmarksTuit);
             app.get("/users/:uid/bookmarks", BookmarkController.bookmarkController.findAllTuitsBookmarkedByUser);
+            app.delete("/users/:uid/unbookmarkall", BookmarkController.bookmarkController.removeAllBookmarks);
 
         }
         return BookmarkController.bookmarkController;
@@ -77,6 +80,17 @@ export default class BookmarkController implements BookmarkControllerI {
      */
     userUnbookmarksTuit = (req: Request, res: Response) =>
         BookmarkController.bookmarkDao.userUnbookmarksTuit(req.params.uid, req.params.tid)
+            .then(status => res.send(status));
+
+    /**
+     * @param {Request} req Represents request from client, including the
+     * path parameters uid  representing the user that is unbookmarking
+     * all the tuits and the tuits being bookmarked
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting the bookmarks was successful or not
+     */
+    removeAllBookmarks = (req: Request, res: Response) =>
+        BookmarkController.bookmarkDao.removeAllBookmarks(req.params.uid)
             .then(status => res.send(status));
 
 

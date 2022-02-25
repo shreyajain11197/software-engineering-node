@@ -2,6 +2,8 @@
  * @file Declares API for MessageDao related data access object methods
  */
 import Message from "../../models/messages/Message";
+import User from "../../models/users/User";
+import UserModel from "../../mongoose/users/UserModel";
 
 /**
  * @interface MessageDaoI  Defines the following use CRUD operations for the provided HTTP endpoints:
@@ -47,5 +49,20 @@ export default interface MessageDaoI {
      * @returns Promise To be notified when the messages received by the user are retrieved from the database
      */
     findMessagesSentToUser( username: string) : Promise<Message[]>;
+
+    /**
+     * Removes message from the database.
+     * @param {string} user_id Primary key of user whose sent messages is to be removed
+     * @returns Promise To be notified when messages are removed from the database
+     */
+    deleteAllUserSentMessages ( user_id: String): Promise<any>;
+
+    /**
+     * Updates message with new values in database
+     * @param {string} uid Primary key of user to be modified
+     * @param {Message} message User object containing properties and their new values
+     * @returns Promise To be notified when user is updated in the database
+     */
+    userEditsMessage(uid: string, message: Message): Promise<any>;
 
 };

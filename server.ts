@@ -6,6 +6,7 @@ import TuitController from "./controllers/tuits/TuitController";
 import LikeController from "./controllers/likes/LikeController";
 import BookmarkController from "./controllers/bookmarks/BookmarkController";
 import MessageController from "./controllers/messages/MessageController";
+import FollowController from "./controllers/follows/FollowController";
 
 mongoose.connect('mongodb+srv://cs5500:Spring2022@cluster0.9yuzq.mongodb.net/tuiter?retryWrites=true&w=majority');
 const app = express();
@@ -24,6 +25,7 @@ const tuitController = TuitController.getInstance(app);
 const likeController = LikeController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
+const followController = FollowController.getInstance(app);
 
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);

@@ -39,4 +39,11 @@ export default interface BookmarkDaoI {
      * @returns Promise To be notified with a collection of tuits bookmarked by the user is retrieved from the database
      */
     findAllTuitsBookmarkedByUser (uid: string): Promise<Bookmark[]>;
+
+    /**
+     * Allows a user to unbookmark all tuit
+     * @param {string} uid User id of the person unbookmarking all tuit to be removed from the database
+     * @returns Promise To be notified when tall he tuits are unbookmarked and entries are removed from the database
+     */
+    removeAllBookmarks ( uid: string): Promise<any>;
 };

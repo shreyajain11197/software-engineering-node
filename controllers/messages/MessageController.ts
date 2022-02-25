@@ -37,9 +37,11 @@ export default class MessageController implements MessageControllerI {
             MessageController.messageController = new MessageController();
 
             app.post("/users/:fromuid/messages/:touid", MessageController.messageController.userMessagesUser);
-            app.delete("/messages/:messageid/", MessageController.messageController.userDeletesMessage);
+            app.delete("/messages/:messageid", MessageController.messageController.userDeletesMessage);
             app.get("/users/:fromuid/sentmessages", MessageController.messageController.findMessagesSentByUser);
             app.get("/users/:touid/messagesreceived", MessageController.messageController.findMessagesSentToUser);
+            app.delete("/users/:uid/deletemessages", MessageController.messageController.deleteAllUserSentMessages);
+            app.put("/messages/:messageid", MessageController.messageController.userEditsMessage);
         }
         return MessageController.messageController;
     }
@@ -88,4 +90,26 @@ export default class MessageController implements MessageControllerI {
     findMessagesSentToUser = (req: Request, res: Response) =>
         MessageController.messageDao.findMessagesSentToUser(req.params.touid)
             .then(messages => res.json(messages));
+
+    /**
+     * @param {Request} req Represents request from client, including the
+     * path parameters uid  representing the user who is deleting
+     * all the messages he sent and the messages being deleted
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting all the messages sent by the user was successful or not
+     */
+    deleteAllUserSentMessages = (req: Request, res: Response) =>
+        MessageController.messageDao.deleteAllUserSentMessages(req.params.uid)
+            .then(status => res.send(status));
+
+    /**
+     * Modifies an existing message
+     * @param {Request} req Represents request from client, including path
+     * parameter uid identifying the primary key of the user to be modified
+     * @param {Response} res Represents response to client, including status
+     * on whether updating a user was successful or not
+     */
+    userEditsMessage = (req: Request, res: Response) =>
+        MessageController.messageDao.userEditsMessage(req.params.messageid,req.body)
+            .then(status => res.json(status));
 }

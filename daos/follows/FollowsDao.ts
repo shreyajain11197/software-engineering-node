@@ -20,12 +20,14 @@ export default class FollowsDao implements FollowDaoI {
      * @returns FollowsDao
      */
     public static getInstance = (): FollowsDao => {
-        if(FollowsDao.followDao === null) {
+        if (FollowsDao.followDao === null) {
             FollowsDao.followDao = new FollowsDao();
         }
         return FollowsDao.followDao;
     }
-    private constructor() {}
+
+    private constructor() {
+    }
 
     /**
      * Allows a user to follow another user
@@ -67,4 +69,19 @@ export default class FollowsDao implements FollowDaoI {
             .populate("userFollowed")
             .exec();
 
+    /**
+     * Allows a user to unfollow another user
+     * @param {string} userId User id of the person wanting to unfollow all user to be removed from the database
+     * @returns Promise To be notified when user has unfollowed all users and entries are removed from the database
+     */
+    deleteAllUserFollowingUsers = async (userId: string): Promise<any> =>
+        FollowModel.deleteMany({userFollowed: userId});
+
+    /**
+     * Allows a user to unfollow another user
+     * @param {string} userId User id of the person wanting to remove all users who follow him to be removed from the database
+     * @returns Promise To be notified when user has removed all follower users and entries are removed from the database
+     */
+    deleteAllUserFollowers = async (userId: string): Promise<any> =>
+        FollowModel.deleteMany({userFollowing: userId});
 }

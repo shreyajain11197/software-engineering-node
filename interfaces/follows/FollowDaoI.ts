@@ -48,4 +48,18 @@ export default interface FollowDaoI {
      * @returns Promise To be notified when the following list of the user is retrieved from the database
      */
     getUserFollowingList (userId: string): Promise<Follow[]>;
+
+    /**
+     * Allows a user to unfollow another user
+     * @param {string} userId User id of the person wanting to unfollow all user to be removed from the database
+     * @returns Promise To be notified when user has unfollowed all users and entries are removed from the database
+     */
+    deleteAllUserFollowingUsers ( userId: string): Promise<any>;
+
+    /**
+     * Allows a user to unfollow another user
+     * @param {string} userId User id of the person wanting to remove all followers to be removed from the database
+     * @returns Promise To be notified when user has removed  all followers and entries are removed from the database
+     */
+    deleteAllUserFollowers ( userId: string): Promise<any>;
 };

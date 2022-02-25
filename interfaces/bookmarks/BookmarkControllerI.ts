@@ -45,4 +45,13 @@ export default interface BookmarkControllerI {
      */
     findAllTuitsBookmarkedByUser (req: Request, res: Response): void;
 
+    /**
+     * @param {Request} req Represents request from client, including the
+     * path parameters uid  representing the user that is unbookmarking
+     * all the tuits and the tuits being bookmarked
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting the bookmarks was successful or not
+     */
+    removeAllBookmarks (req: Request, res: Response): void;
+
 };
