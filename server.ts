@@ -7,7 +7,7 @@
  *     <li>likes</li>
  *     <li>follows</li>
  *     <li>messages</li>
- *     <li>tuits</li>
+ *     <li>bookmarks</li>
  * </ul>
  *
  * Connects to a remote MongoDB instance hosted on the Atlas cloud database
@@ -23,10 +23,25 @@ import LikeController from "./controllers/likes/LikeController";
 import BookmarkController from "./controllers/bookmarks/BookmarkController";
 import MessageController from "./controllers/messages/MessageController";
 import FollowController from "./controllers/follows/FollowController";
+var cors = require('cors')
 
-mongoose.connect('mongodb+srv://cs5500:Spring2022@cluster0.9yuzq.mongodb.net/tuiter?retryWrites=true&w=majority');
+
+// build the connection string
+const PROTOCOL = "mongodb+srv";
+const DB_USERNAME = process.env.DB_USERNAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const HOST = "cluster0.9yuzq.mongodb.net";
+const DB_NAME = "tuiter";
+const DB_QUERY = "retryWrites=true&w=majority";
+const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${DB_NAME}?${DB_QUERY}`;
+// connect to the database
+mongoose.connect(connectionString);
+
+//mongoose.connect('mongodb+srv://cs5500:Spring2022@cluster0.9yuzq.mongodb.net/tuiter?retryWrites=true&w=majority');
 const app = express();
+app.use(express.json());
 app.use(bodyParser.json())
+app.use(cors());
 
 app.get('/hello', (req, res) =>
     res.send('Hello World!'));

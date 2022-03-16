@@ -63,4 +63,22 @@ export default interface UserControllerI {
      * on whether deleting a user was successful or not
      */
     deleteUser (req: Request, res: Response): void;
+
+    /**
+     * Allows a user to login to the Tuiter application
+     * @param {Request} req Represents request from client, including
+     * the username and password in the body.
+     * @param {Response} res Represents response to client, with
+     * either a successful login or an unsuccessful login.
+     */
+    login (req: Request, res: Response): void;
+
+    /**
+     * Allows a user to register and create an account in the Tuiter application
+     * @param {Request} req Represents request from client, including
+     * the username and password and email in the body.
+     * @param {Response} res Represents response to client, with
+     * either a successful registration or an unsuccessful registration.
+     */
+    register (req: Request, res: Response): void;
 };

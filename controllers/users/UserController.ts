@@ -33,6 +33,7 @@ export default class UserController implements UserControllerI {
     public static getInstance = (app: Express): UserController => {
         if(UserController.userController === null) {
             UserController.userController = new UserController();
+            app.post("/login", UserController.userController.login);
             app.get('/users', UserController.userController.findAllUsers);
             app.get('/users/:userid', UserController.userController.findUserById);
             app.post('/users', UserController.userController.createUser);
@@ -99,4 +100,31 @@ export default class UserController implements UserControllerI {
     updateUser = (req: Request, res: Response) =>
         UserController.userDao.updateUser(req.params.userid, req.body)
             .then(status => res.json(status));
+
+    /**
+    * Allows a user to login to the Tuiter application
+    * @param {Request} req Represents request from client, including
+    * the username and password in the body.
+    * @param {Response} res Represents response to client, with
+    * either a successful login or an unsuccessful login.
+    */
+    login = (req: Request, res: Response) =>
+        UserController.userDao
+            .findUserByCredentials(req.body.username, req.body.password)
+            .then(user => {
+                res.json(user)
+            });
+
+    /**
+    * Allows a user to register and create an account in the Tuiter application
+    * @param {Request} req Represents request from client, including
+    * the username and password and email in the body.
+    * @param {Response} res Represents response to client, with
+    * either a successful registration or an unsuccessful registration.
+    */
+    register = (req: Request, res: Response) =>
+        UserController.userDao.findUserByUsername(req.body.username)
+            .then(user => {
+                res.json(user)
+            });
 }

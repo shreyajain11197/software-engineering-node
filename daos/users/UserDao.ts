@@ -75,4 +75,23 @@ export default class UserDao implements UserDaoI{
         return UserModel.updateOne({_id: uid}, {$set: user});
     }
 
+    /**
+    * Finds user in the database.
+    * @param {string} username username of the user
+    * @param {String} password password of the user
+    * @returns Promise To be notified when user is retrieved from the database
+    */
+    async findUserByCredentials(username: string, password: string): Promise<any> {
+        UserModel.findOne({username: username, password: password});
+    }
+
+    /**
+     * Finds user in the database on the basis of the username.
+     * @param {string} username username of the user
+     * @returns Promise To be notified when user is retrieved from the database
+     */
+     async findUserByUsername(username: string): Promise<any> {
+         UserModel.findOne({username});
+     }
+
 }

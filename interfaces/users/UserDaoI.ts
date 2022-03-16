@@ -57,4 +57,19 @@ export default interface UserDaoI {
      */
     deleteUser(uid: string): Promise<any>;
 
+    /**
+    * Finds user in the database.
+    * @param {string} username username of the user
+    * @param {String} password password of the user
+    * @returns Promise To be notified when user is retrieved from the database
+    */
+    findUserByCredentials(username: string, password: string): Promise<any>;
+
+    /**
+    * Finds user in the database on the basis of the username.
+    * @param {string} username username of the user
+    * @returns Promise To be notified when user is retrieved from the database
+    */
+    findUserByUsername(username: string): Promise<any>;
+
 }
