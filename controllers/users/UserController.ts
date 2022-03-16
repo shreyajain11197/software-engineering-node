@@ -39,6 +39,8 @@ export default class UserController implements UserControllerI {
             app.post('/users', UserController.userController.createUser);
             app.delete('/users/:userid', UserController.userController.deleteUser);
             app.put('/users/:userid', UserController.userController.updateUser);
+            app.get("/users/username/:username/delete", UserController.userController.deleteUsersByUsername);
+            app.get("/users/delete", UserController.userController.deleteAllUsers);
         }
         return UserController.userController;
     }
@@ -100,6 +102,26 @@ export default class UserController implements UserControllerI {
     updateUser = (req: Request, res: Response) =>
         UserController.userDao.updateUser(req.params.userid, req.body)
             .then(status => res.json(status));
+
+    /**
+     * Removes all user instances from the database. Useful for testing
+     * @param {Request} req Represents request from client
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting all users was successful or not
+     */
+    deleteAllUsers = (req: Request, res: Response) =>
+        UserController.userDao.deleteAllUsers()
+            .then((status) => res.send(status));
+
+    /**
+     * Removes  user instance from the database on the basis of username.
+     * @param {Request} req Represents request from client
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting user was successful or not
+     */
+    deleteUsersByUsername = (req: Request, res: Response) =>
+        UserController.userDao.deleteUsersByUsername(req.params.username)
+            .then(status => res.send(status));
 
     /**
     * Allows a user to login to the Tuiter application

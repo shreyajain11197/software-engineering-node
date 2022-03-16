@@ -2,6 +2,7 @@
  * @file Interface UserDaoI for DAO managing data storage of users.
  */
 import User from "../../models/users/User";
+import UserModel from "../../mongoose/users/UserModel";
 
 /**
  * @interface UserDaoI consisting of methods for DAO managing data storage of users.
@@ -71,5 +72,19 @@ export default interface UserDaoI {
     * @returns Promise To be notified when user is retrieved from the database
     */
     findUserByUsername(username: string): Promise<any>;
+
+    /**
+    * Removes all users from the database. Useful for testing
+    * @returns Promise To be notified when all users are removed from the
+    * database
+    */
+    deleteAllUsers(): Promise<any>;
+
+    /**
+    * Removes a user from the database. Useful for testing
+    * @returns Promise To be notified when  user is removed from the
+    * database
+    */
+    deleteUsersByUsername(username: string): Promise<any>;
 
 }

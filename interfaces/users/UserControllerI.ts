@@ -65,6 +65,22 @@ export default interface UserControllerI {
     deleteUser (req: Request, res: Response): void;
 
     /**
+     * Removes all user instances from the database. Useful for testing
+     * @param {Request} req Represents request from client
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting all users was successful or not
+     */
+    deleteAllUsers (req: Request, res: Response): void;
+
+    /**
+     * Removes  user instance from the database on the basis of username.
+     * @param {Request} req Represents request from client
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting user was successful or not
+     */
+    deleteUsersByUsername (req: Request, res: Response): void;
+
+    /**
      * Allows a user to login to the Tuiter application
      * @param {Request} req Represents request from client, including
      * the username and password in the body.
