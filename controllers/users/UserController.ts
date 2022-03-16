@@ -33,14 +33,14 @@ export default class UserController implements UserControllerI {
     public static getInstance = (app: Express): UserController => {
         if(UserController.userController === null) {
             UserController.userController = new UserController();
-            app.post("/login", UserController.userController.login);
+            app.post('/login', UserController.userController.login);
             app.get('/users', UserController.userController.findAllUsers);
             app.get('/users/:userid', UserController.userController.findUserById);
             app.post('/users', UserController.userController.createUser);
             app.delete('/users/:userid', UserController.userController.deleteUser);
             app.put('/users/:userid', UserController.userController.updateUser);
-            app.get("/users/username/:username/delete", UserController.userController.deleteUsersByUsername);
-            app.get("/users/delete", UserController.userController.deleteAllUsers);
+            app.delete('/users/username/:username/delete', UserController.userController.deleteUsersByUsername);
+            app.delete('/users/delete', UserController.userController.deleteAllUsers);
         }
         return UserController.userController;
     }

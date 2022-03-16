@@ -100,7 +100,7 @@ export default class UserDao implements UserDaoI{
      * database
      */
     async deleteAllUsers(): Promise<any> {
-        UserModel.deleteMany({});
+        return UserModel.deleteMany({});
     }
 
     /**
@@ -109,7 +109,7 @@ export default class UserDao implements UserDaoI{
      * database
      */
     async deleteUsersByUsername(username: string): Promise<any> {
-        UserModel.deleteMany({username});
+        return UserModel.deleteMany({_username: username});
     }
 
 }
