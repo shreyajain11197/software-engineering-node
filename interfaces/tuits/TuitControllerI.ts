@@ -69,4 +69,12 @@ export default interface TuitControllerI {
      */
     deleteTuit (req: Request, res: Response): void;
 
+    /**
+     * @param {Request} req Represents request from client, including path
+     * parameter postedBy identifying the user who posted the tuits which is to be removed
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting the tuits was successful or not
+     */
+    deleteTuitsByUsername (req: Request, res: Response): void;
+
 };

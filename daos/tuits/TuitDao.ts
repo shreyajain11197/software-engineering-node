@@ -84,4 +84,12 @@ export default class TuitDao implements TuitDaoI {
         return TuitModel.updateOne({_id: tid},{$set: tuit});
     }
 
+    /**
+     * Removes tuits of a user from the database.
+     * @param {string} postedBy the user whose tuits are to be removed
+     * @returns Promise To be notified when tuits of the user are removed from the database
+     */
+    async deleteTuitsByUsername(postedBy: string): Promise<any> {
+        return TuitModel.deleteMany({postedBy});
+    }
 }
