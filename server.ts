@@ -32,14 +32,15 @@ const session = require("express-session");
 
 mongoose.connect('mongodb+srv://cs5500:Spring2022@cluster0.9yuzq.mongodb.net/tuiter?retryWrites=true&w=majority');
 const app = express();
+require('dotenv').config()
 app.use(express.json());
 app.use(bodyParser.json())
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000' //process.env.CORS_ORIGIN
+    origin: process.env.CORS_ORIGIN
 }));
 
-const SECRET = 'secret'; // process.env.EXPRESS_SESSION_SECRET
+const SECRET = process.env.EXPRESS_SESSION_SECRET
 let sess = {
     secret: SECRET,
     saveUninitialized: true,
