@@ -72,4 +72,19 @@ export default interface TuitDaoI {
      */
     deleteTuitsByUsername(postedBy: string): Promise<any>;
 
+    /**
+     * Updates the likes on a tuit
+     * @param {string} tid the id of the tuit whose likes are to be updated
+     * @param {any} newStats the new statistics on the likes of a tuit.
+     * @returns Promise To be notified when likes on a tuit is updated.
+     */
+    updateLikes (tid: string, newStats: any): Promise<any>;
+
+    /**
+     * Updates the dislikes on a tuit
+     * @param {string} tid the id of the tuit whose likes are to be updated
+     * @param {any} newStats the new statistics on the likes of a tuit.
+     * @returns Promise To be notified when likes on a tuit is updated.
+     */
+    updateDislikes (tid: string, newStats: any): Promise<any>;
 }
