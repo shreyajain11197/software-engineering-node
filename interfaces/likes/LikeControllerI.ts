@@ -45,14 +45,6 @@ export default interface LikeControllerI {
      * body formatted as JSON containing the new likes that was inserted in the
      * database
      */
-    userLikesTuit (req: Request, res: Response): void;
+    userTogglesTuitLikes (req: Request, res: Response): void;
 
-    /**
-     * @param {Request} req Represents request from client, including the
-     * path parameters uid and tid representing the user that is unliking
-     * the tuit and the tuit being unliked
-     * @param {Response} res Represents response to client, including status
-     * on whether deleting the like was successful or not
-     */
-    userUnlikesTuit (req: Request, res: Response): void;
 };
