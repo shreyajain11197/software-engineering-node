@@ -34,36 +34,32 @@ export default class UserDao implements UserDaoI{
      * @param {User} user Instance to be inserted into the database
      * @returns Promise To be notified when user is inserted into the database
      */
-    async createUser(user: User): Promise<User> {
-        return UserModel.create(user);
-    }
+    createUser = async (user: User): Promise<User> =>
+        UserModel.create(user);
 
     /**
      * Removes user from the database.
      * @param {string} uid Primary key of user to be removed
      * @returns Promise To be notified when user is removed from the database
      */
-    async deleteUser(uid: string): Promise<any> {
-        return UserModel.deleteOne({_id: uid});
-    }
+    deleteUser = async (uid: string): Promise<any> =>
+        UserModel.deleteOne({_id: uid});
 
     /**
      * Uses UserModel to retrieve all user documents from users collection
      * @returns Promise To be notified when the users are retrieved from
      * database
      */
-    async findAllUsers(): Promise<User[]> {
-        return UserModel.find();
-    }
+    findAllUsers = async (): Promise<User[]> =>
+        UserModel.find().exec();
 
     /**
      * Uses UserModel to retrieve single user document from users collection
      * @param {string} uid User's primary key
      * @returns Promise To be notified when user is retrieved from the database
      */
-    async findUserById(uid: string): Promise<any> {
-        return UserModel.findById(uid);
-    }
+    findUserById = async (uid: string): Promise<any> =>
+        UserModel.findById(uid);
 
     /**
      * Updates user with new values in database
@@ -71,45 +67,42 @@ export default class UserDao implements UserDaoI{
      * @param {User} user User object containing properties and their new values
      * @returns Promise To be notified when user is updated in the database
      */
-    async updateUser(uid: string, user: User): Promise<any> {
-        return UserModel.updateOne({_id: uid}, {$set: user});
-    }
+    updateUser = async (uid: string, user: User): Promise<any> =>
+        UserModel.updateOne(
+            {_id: uid},
+            {$set: user});
 
     /**
-    * Finds user in the database.
-    * @param {string} username username of the user
-    * @param {String} password password of the user
-    * @returns Promise To be notified when user is retrieved from the database
-    */
-    async findUserByCredentials(username: string, password: string): Promise<any> {
+     * Finds user in the database.
+     * @param {string} username username of the user
+     * @param {String} password password of the user
+     * @returns Promise To be notified when user is retrieved from the database
+     */
+    findUserByCredentials = async (username: string, password: string): Promise<any> =>
         UserModel.findOne({username: username, password: password});
-    }
 
     /**
      * Finds user in the database on the basis of the username.
      * @param {string} username username of the user
      * @returns Promise To be notified when user is retrieved from the database
      */
-     async findUserByUsername(username: string): Promise<any> {
-         UserModel.findOne({username});
-     }
+    findUserByUsername = async (username: string): Promise<any> =>
+        UserModel.findOne({username});
 
     /**
      * Removes all users from the database. Useful for testing
      * @returns Promise To be notified when all users are removed from the
      * database
      */
-    async deleteAllUsers(): Promise<any> {
-        return UserModel.deleteMany({});
-    }
+    deleteAllUsers = async (): Promise<any> =>
+        UserModel.deleteMany({});
 
     /**
      * Removes a user from the database. Useful for testing
      * @returns Promise To be notified when  user is removed from the
      * database
      */
-    async deleteUsersByUsername(username: string): Promise<any> {
-        return UserModel.deleteMany({username});
-    }
+    deleteUsersByUsername = async (username: string): Promise<any> =>
+        UserModel.deleteMany({username});
 
 }

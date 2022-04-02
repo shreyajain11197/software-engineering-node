@@ -44,10 +44,11 @@ export default interface TuitDaoI {
 
     /**
      * Inserts tuit instance into the database
+     * @param {string} uid User id of the user creating the tuit
      * @param {Tuit} tuit Instance to be inserted into the database
      * @returns Promise To be notified when tuit is inserted into the database
      */
-    createTuit(tuit: Tuit): Promise<Tuit>;
+    createTuitByUser(uid: string, tuit: Tuit): Promise<Tuit>;
 
     /**
      * Updates Tuit with new values in database

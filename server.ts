@@ -14,29 +14,54 @@
  * service
  */
 
-import express from 'express';
+import express, {Request, Response} from 'express';
 import mongoose from "mongoose";
 import UserController from "./controllers/users/UserController";
 import bodyParser from "body-parser";
 import TuitController from "./controllers/tuits/TuitController";
-import LikeController from "./controllers/likes/LikeController";
 import BookmarkController from "./controllers/bookmarks/BookmarkController";
 import MessageController from "./controllers/messages/MessageController";
 import FollowController from "./controllers/follows/FollowController";
-var cors = require('cors')
+import LikeController from "./controllers/likes/LikeController";
+import AuthenticationController from "./controllers/authentication/AuthenticationController";
+import SessionController from './controllers/session/SessionController';
+
+const cors = require("cors");
+const session = require("express-session");
 
 mongoose.connect('mongodb+srv://cs5500:Spring2022@cluster0.9yuzq.mongodb.net/tuiter?retryWrites=true&w=majority');
 const app = express();
+require("dotenv").config();
 app.use(express.json());
 app.use(bodyParser.json())
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: process.env.CORS_ORIGIN
+}));
 
-app.get('/hello', (req, res) =>
-    res.send('Hello World!'));
+const SECRET = process.env.EXPRESS_SESSION_SECRET
+let sess = {
+    secret: SECRET,
+    saveUninitialized: true,
+    resave: true,
+    cookie: {
+        sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+        secure: process.env.NODE_ENV === "production",
+    }
+}
 
-app.get('/add/:a/:b', (req, res) => {
-    res.send(req.params.a + req.params.b);
-})
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+}
+
+app.use(session(sess))
+app.use(express.json());
+
+app.get('/', (req: Request, res: Response) =>
+    res.send('Welcome!'));
+
+app.get('/add/:a/:b', (req: Request, res: Response) =>
+    res.send(req.params.a + req.params.b));
 
 
 const userController = UserController.getInstance(app);
@@ -45,7 +70,8 @@ const likeController = LikeController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 const followController = FollowController.getInstance(app);
-
+SessionController(app);
+AuthenticationController(app);
 /**
  * Start a server listening at port 4000 locally
  * but use environment variable PORT on Heroku if available.

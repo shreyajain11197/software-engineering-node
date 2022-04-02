@@ -4,7 +4,7 @@
 import Like from "../../models/likes/Like";
 
 /**
- * @class LikeDaoI onsisting of methods for DAO managing data storage of likes.
+ * @class LikeDaoI consisting of methods for DAO managing data storage of likes.
  * Defines the following use CRUD operations for the provided HTTP endpoints:
  * <ul>
  *     <li> user likes a tuit
@@ -48,4 +48,19 @@ export default interface LikeDaoI {
      * @returns Promise To be notified when the tuit being liked is inserted into the database
      */
     userLikesTuit (tid: string, uid: string): Promise<Like>;
+
+    /**
+     * Finds if the user has liked a tuit
+     * @param {string} uid userId of the user
+     * @param {string} tid Tuit id of the tuit
+     * @returns Promise To be notified when the user has liked the tuit
+     */
+    findUserLikesTuit (uid: string, tid: string): Promise<any>;
+
+    /**
+     * Counts the likes on a tuit
+     * @param {string} tid Tuit id of the tuit whose count is to be fetched
+     * @returns Promise To be notified when count on a tuit is returned
+     */
+    countHowManyLikedTuit (tid: string): Promise<any>;
 };
