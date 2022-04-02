@@ -117,4 +117,17 @@ export default class TuitDao implements TuitDaoI {
     async findTuitsByUser(username: string): Promise<any> {
         return TuitModel.find({postedBy: username});
     }
+
+
+    /**
+     * Updates the dislikes on a tuit
+     * @param {string} tid the id of the tuit whose likes are to be updated
+     * @param {any} newStats the new statistics on the likes of a tuit.
+     * @returns Promise To be notified when likes on a tuit is updated.
+     */
+    updateDislikes = async (tid: string, newStats: any): Promise<any> =>
+        TuitModel.updateOne(
+            {_id: tid},
+            {$set: {stats: newStats}}
+        );
 }

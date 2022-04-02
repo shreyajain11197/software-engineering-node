@@ -25,6 +25,7 @@ import FollowController from "./controllers/follows/FollowController";
 import LikeController from "./controllers/likes/LikeController";
 import AuthenticationController from "./controllers/authentication/AuthenticationController";
 import SessionController from './controllers/session/SessionController';
+import DislikeController from "./controllers/dislikes/DislikeController";
 
 const cors = require("cors");
 const session = require("express-session");
@@ -69,6 +70,7 @@ const likeController = LikeController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 const followController = FollowController.getInstance(app);
+const dislikeController = DislikeController.getInstance(app);
 SessionController(app);
 AuthenticationController(app);
 /**
