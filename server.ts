@@ -29,16 +29,16 @@ import DislikeController from "./controllers/dislikes/DislikeController";
 
 const cors = require("cors");
 const session = require("express-session");
-
-mongoose.connect('mongodb+srv://cs5500:Spring2022@cluster0.9yuzq.mongodb.net/tuiter?retryWrites=true&w=majority');
 const app = express();
-require('dotenv').config()
-app.use(express.json());
-app.use(bodyParser.json())
 app.use(cors({
     credentials: true,
     origin: process.env.CORS_ORIGIN
 }));
+
+mongoose.connect('mongodb+srv://cs5500:Spring2022@cluster0.9yuzq.mongodb.net/tuiter?retryWrites=true&w=majority');
+require('dotenv').config()
+app.use(express.json());
+app.use(bodyParser.json())
 
 const SECRET = process.env.EXPRESS_SESSION_SECRET
 let sess = {
