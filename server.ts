@@ -36,7 +36,7 @@ app.use(cors({
 }));
 
 mongoose.connect('mongodb+srv://cs5500:Spring2022@cluster0.9yuzq.mongodb.net/tuiter?retryWrites=true&w=majority');
-
+require('dotenv').config()
 app.use(express.json());
 app.use(bodyParser.json())
 

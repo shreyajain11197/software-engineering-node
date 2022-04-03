@@ -33,7 +33,7 @@ export default class LikeController implements LikeControllerI {
      * Creates singleton controller instance
      * @param {Express} app Express instance to declare the RESTful Web service
      * API
-     * @return TuitController
+     * @return likeController
      */
     public static getInstance = (app: Express): LikeController => {
         if(LikeController.likeController === null) {
@@ -87,7 +87,7 @@ export default class LikeController implements LikeControllerI {
      * and the tuit being liked
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON containing the new likes that was inserted in the
-     * database
+     * database along with the toggle function to update the count of likes and dislikes
      */
     userTogglesTuitLikes = async (req: Request, res: Response) => {
         const likeDao = LikeController.likeDao;
