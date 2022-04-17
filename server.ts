@@ -32,7 +32,7 @@ const session = require("express-session");
 const app = express();
 app.use(cors({
     credentials: true,
-    origin: process.env.CORS_ORIGIN
+    origin: "http://localhost:3000"
 }));
 
 mongoose.connect('mongodb+srv://cs5500:Spring2022@cluster0.9yuzq.mongodb.net/tuiter?retryWrites=true&w=majority');
@@ -40,18 +40,18 @@ require('dotenv').config()
 app.use(express.json());
 app.use(bodyParser.json())
 
-const SECRET = process.env.EXPRESS_SESSION_SECRET
+const SECRET = "secret"
 let sess = {
     secret: SECRET,
     saveUninitialized: true,
     resave: true,
     cookie: {
-        sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
-        secure: process.env.NODE_ENV === "production",
+        sameSite: "production" === "production" ? 'none' : 'lax',
+        secure: "production" === "production",
     }
 }
 
-if (process.env.NODE_ENV === 'production') {
+if ("production" === 'production') {
     app.set('trust proxy', 1) // trust first proxy
 }
 
@@ -79,4 +79,4 @@ AuthenticationController(app);
  * but use environment variable PORT on Heroku if available.
  */
 const PORT = 4000;
-app.listen(process.env.PORT || PORT);
+app.listen(4000 || PORT);
